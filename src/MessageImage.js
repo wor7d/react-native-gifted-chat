@@ -10,22 +10,41 @@ import Lightbox from 'react-native-lightbox';
 
 export default class MessageImage extends React.Component {
   render() {
-    return (
-      <View style={[styles.container, this.props.containerStyle]}>
-        <Lightbox
-          activeProps={{
-            style: styles.imageActive,
-          }}
-          {...this.props.lightboxProps}
-        >
-          <Image
-            {...this.props.imageProps}
-            style={[styles.image, this.props.imageStyle]}
-            source={{uri: this.props.currentMessage.image}}
-          />
-        </Lightbox>
-      </View>
-    );
+    if (typeof this.props.currentMessage.image === "string") {
+      return (
+        <View style={[styles.container, this.props.containerStyle]}>
+          <Lightbox
+            activeProps={{
+              style: styles.imageActive
+            }}
+            {...this.props.lightboxProps}
+          >
+            <Image
+              {...this.props.imageProps}
+              style={[styles.image, this.props.imageStyle]}
+              source={{ uri: this.props.currentMessage.image }}
+            />
+          </Lightbox>
+        </View>
+      );
+    } else if (typeof this.props.currentMessage.image === "object") {
+      return (
+        <View style={[styles.container, this.props.containerStyle]}>
+          <Lightbox
+            activeProps={{
+              style: styles.imageActive
+            }}
+            {...this.props.lightboxProps}
+          >
+            <Image
+              {...this.props.imageProps}
+              style={[styles.image, this.props.imageStyle]}
+              source={this.props.currentMessage.image}
+            />
+          </Lightbox>
+        </View>
+      );
+    }
   }
 }
 
